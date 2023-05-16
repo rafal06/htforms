@@ -1,15 +1,41 @@
 <script lang="ts">
 	import { Col, Container, FormGroup, Input, Row } from "sveltestrap";
 	import { FormInputType, type FormInput } from "./types";
-	import { formStore } from "./store";
+	import editIcon from "../assets/editIcon.svg";
+	import checkmarkIcon from "../assets/checkmarkIcon.svg";
 
 	export let formInput: FormInput;
+
+	let editTypeVisible = false;
 </script>
 
 <Container class="my-3 px-4 py-3 border rounded-3" style="width: initial;">
 	<Row>
 		<Col>
-			<h3>{formInput.type}</h3>
+			{#if editTypeVisible}
+				<Row class="pb-3">
+					<Col>
+						<Input list="inputTypes" bind:value={formInput.type} />
+						<datalist id="inputTypes">
+							{#each Object.keys(FormInputType) as type }
+								<option>{type.toLowerCase()}</option>
+							{/each}
+						</datalist>
+					</Col>
+					<Col xs="auto" class="d-flex align-items-center">
+						<button class="icon-btn" on:click={() => editTypeVisible = false}>
+							<img src={checkmarkIcon} alt="save" height="18">
+						</button>
+					</Col>
+				</Row>
+			{:else}
+				<h3 class="pb-2">
+					{formInput.type}
+					<button class="icon-btn" on:click={() => editTypeVisible = true}>
+						<img src={editIcon} alt="edit" height="18">
+					</button>
+				</h3>
+			{/if}
 		</Col>
 	</Row>
 	<Row>
@@ -32,3 +58,13 @@
 		</Col>
 	</Row>
 </Container>
+
+<style>
+	.icon-btn {
+		border: none;
+		background: none;
+	}
+	.icon-btn > img {
+		vertical-align: initial;
+	}
+</style>
