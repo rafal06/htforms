@@ -8,6 +8,10 @@
 	export let formInput: FormInput;
 
 	let editTypeVisible = false;
+
+	function enterToSubmit(event: any) {
+		if (event.code == 'Enter') editTypeVisible = false;
+	}
 </script>
 
 <Container class="my-3 px-4 py-3 border rounded-3" style="width: initial;">
@@ -16,7 +20,7 @@
 			{#if editTypeVisible}
 				<Row class="pb-3">
 					<Col>
-						<Input list="inputTypes" bind:value={formInput.type} />
+						<Input list="inputTypes" bind:value={formInput.type} on:keypress={enterToSubmit} />
 						<datalist id="inputTypes">
 							{#each Object.keys(FormInputType) as type }
 								<option>{type}</option>
