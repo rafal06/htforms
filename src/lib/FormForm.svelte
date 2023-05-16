@@ -1,5 +1,8 @@
 <script lang="ts">
 	import { Col, Container, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Form, FormGroup, Input, Label, Row } from "sveltestrap";
+	import { dndzone } from "svelte-dnd-action";
+	import { flip } from "svelte/animate";
+	
 	import { FormInputType, type FormInput } from "./types";
 	import { formStore } from "./store";
 	import FormInputItem from "./FormInputItem.svelte";
@@ -7,6 +10,7 @@
 	function addFormItem(type: FormInputType) {
 		formStore.update(form => {
 			form.inputs.push( {
+				id: form.inputs.length,
 				type,
 				name: '',
 				label: '',
@@ -15,6 +19,10 @@
 			return form;
 		});
 		console.log($formStore);
+	}
+
+	function handleSort(e) {
+		$formStore.inputs = e.detail.items
 	}
 </script>
 
@@ -39,11 +47,13 @@
 		</Row>
 
 		<Row>
-			<Col class="border rounded-3">
-				{#each $formStore.inputs as formItem, index }
-					<FormInputItem formInputIndex={index} />
+			<section class="col border rounded-3" use:dndzone={{items: $formStore.inputs, flipDurationMs: 200}} on:consider={handleSort} on:finalize={handleSort}>
+				{#each $formStore.inputs as formInput (formInput.id) }
+					<div animate:flip={{duration: 200}}>
+						<FormInputItem bind:formInput={formInput} />
+					</div>
 				{/each}
-			</Col>
+			</section>
 		</Row>
 
 		<Row class="mt-3">

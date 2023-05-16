@@ -5,6 +5,7 @@ export enum FormInputType {
 }
 
 export interface FormInput {
+	id: number,
 	type: FormInputType,
 	label: string,
 	name: string,
