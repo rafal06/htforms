@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Col, Container, FormGroup, Input, Row } from "sveltestrap";
 	import { FormInputType, type FormInput } from "./types";
+    import { capitalize } from "./helpers";
 	import editIcon from "../assets/editIcon.svg";
 	import checkmarkIcon from "../assets/checkmarkIcon.svg";
 
@@ -18,7 +19,7 @@
 						<Input list="inputTypes" bind:value={formInput.type} />
 						<datalist id="inputTypes">
 							{#each Object.keys(FormInputType) as type }
-								<option>{type.toLowerCase()}</option>
+								<option>{type}</option>
 							{/each}
 						</datalist>
 					</Col>
@@ -30,7 +31,7 @@
 				</Row>
 			{:else}
 				<h3 class="pb-2">
-					{formInput.type}
+					{capitalize(formInput.type)}
 					<button class="icon-btn" on:click={() => editTypeVisible = true}>
 						<img src={editIcon} alt="edit" height="18">
 					</button>

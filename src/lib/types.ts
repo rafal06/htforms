@@ -1,7 +1,7 @@
 export enum FormInputType {
-	text = 'Text',
-	number = 'Number',
-	submit = 'Submit',
+	text = 'text',
+	number = 'number',
+	submit = 'submit',
 }
 
 export interface FormInput {

@@ -2,10 +2,11 @@
 	import { Col, Container, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Form, FormGroup, Input, Label, Row } from "sveltestrap";
 	import { dndzone } from "svelte-dnd-action";
 	import { flip } from "svelte/animate";
-	
+
 	import { FormInputType, type FormInput } from "./types";
 	import { formStore } from "./store";
 	import FormInputItem from "./FormInputItem.svelte";
+    import { capitalize } from "./helpers";
 
 	function addFormItem(type: FormInputType) {
 		formStore.update(form => {
@@ -63,7 +64,7 @@
 					<DropdownMenu>
 						{#each Object.keys(FormInputType) as type }
 							<DropdownItem on:click={() => addFormItem(FormInputType[type])}>
-								{FormInputType[type]}
+								{capitalize(FormInputType[type])}
 							</DropdownItem>
 						{/each}
 					</DropdownMenu>
