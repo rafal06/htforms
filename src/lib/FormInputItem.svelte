@@ -58,7 +58,12 @@
 	<Row>
 		<Col>
 			<FormGroup>
-				<Input type="checkbox" label="Required" bind:checked={formInput.required} />
+				<Input
+					type="checkbox"
+					label="Required"
+					id={`required-checkbox-${formInput.id}`}
+					bind:checked={formInput.required}
+				/>
 			</FormGroup>
 		</Col>
 	</Row>
