@@ -29,7 +29,7 @@
 					</Col>
 					<Col xs="auto" class="d-flex align-items-center">
 						<button class="icon-btn" on:click={() => editTypeVisible = false}>
-							<img src={checkmarkIcon} alt="save" height="18">
+							<img src={checkmarkIcon} class="darkreader-invert" alt="save" height="18">
 						</button>
 					</Col>
 				</Row>
@@ -37,7 +37,7 @@
 				<h3 class="pb-2">
 					{capitalize(formInput.type)}
 					<button class="icon-btn" on:click={() => editTypeVisible = true}>
-						<img src={editIcon} alt="edit" height="18">
+						<img src={editIcon} class="darkreader-invert" alt="edit" height="18">
 					</button>
 				</h3>
 			{/if}

@@ -1,0 +1,3 @@
+html[data-darkreader-scheme="dark"] .darkreader-invert {
+    filter: invert(1);
+}
