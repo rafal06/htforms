@@ -7,13 +7,13 @@
 
 <Navbar/>
 
-<Container>
+<div class="container-lg mb-4">
 	<Row>
-		<Col>
+		<div class="col-md-6">
 			<FormForm/>
-		</Col>
-		<Col>
+		</div>
+		<div class="col-md-6 mt-4 mt-md-0">
 			<FormOutputView/>
-		</Col>
+		</div>
 	</Row>
-</Container>
+</div>
