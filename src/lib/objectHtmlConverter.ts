@@ -6,7 +6,7 @@ export function convertToHtml(form: FormObj) {
     form.inputs.forEach(inputObj => {
         formHtml += '    <div>\n' +
                     (inputObj.label ? `        <label for="${inputObj.name}">${inputObj.label}</label>\n` : '') +
-                    `        <input type="${inputObj.type.toLowerCase()}" name="${inputObj.name}" id="${inputObj.name}" ${inputObj.additionalProperties ? inputObj.additionalProperties + ' ' : ''}/>\n` +
+                    `        <input type="${inputObj.type.toLowerCase()}" name="${inputObj.name}" id="${inputObj.name}" ${inputObj.required ? 'required ' : ''}${inputObj.additionalProperties ? inputObj.additionalProperties + ' ' : ''}/>\n` +
                     '    </div>\n'
     });
 

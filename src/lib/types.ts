@@ -9,6 +9,7 @@ export interface FormInput {
 	type: FormInputType,
 	label: string,
 	name: string,
+	required: boolean,
 	additionalProperties: string | undefined,
 }
 

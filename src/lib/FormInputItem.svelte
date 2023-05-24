@@ -57,6 +57,13 @@
 	</Row>
 	<Row>
 		<Col>
+			<FormGroup>
+				<Input type="checkbox" label="Required" bind:checked={formInput.required} />
+			</FormGroup>
+		</Col>
+	</Row>
+	<Row>
+		<Col>
 			<FormGroup floating label="Additional properties">
 				<Input bind:value={formInput.additionalProperties}/>
 			</FormGroup>

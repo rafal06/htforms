@@ -15,6 +15,7 @@
 				type,
 				name: '',
 				label: '',
+				required: false,
 				additionalProperties: undefined,
 			})
 			return form;
