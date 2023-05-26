@@ -7,7 +7,7 @@
 
 <Navbar/>
 
-<div class="container-lg mb-4">
+<div class="container-xl mb-4">
 	<Row>
 		<div class="col-md-6">
 			<FormForm/>
