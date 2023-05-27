@@ -1,3 +1,7 @@
 html[data-darkreader-scheme="dark"] .darkreader-invert {
     filter: invert(1);
 }
+
+.code-p-3 code {
+    padding: 1rem;
+}

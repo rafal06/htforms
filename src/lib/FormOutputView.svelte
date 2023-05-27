@@ -2,6 +2,10 @@
     import { formStore } from "./store";
     import { convertToHtml } from "./objectHtmlConverter";
 
+    import Highlight from "svelte-highlight";
+    import hljsXml from "svelte-highlight/languages/xml";
+    import hljsGithub from "svelte-highlight/styles/github";
+
     import ClipboardJS from 'clipboard';
     new ClipboardJS('.copy-btn');
 
@@ -13,15 +17,21 @@
             showCopyCheckmark = false;
         }, 2000);
     }
+
+    $: renderedForm = convertToHtml($formStore);
 </script>
+
+<svelte:head>
+    {@html hljsGithub}
+</svelte:head>
 
 <!-- TODO: Tabs with html and rendered form -->
 <div class="m-3 overflow-scroll border rounded-3 position-relative">
-    <pre id="generated-code" class="m-0 p-3" >{convertToHtml($formStore)}</pre>
+    <Highlight language={hljsXml} code={renderedForm} class="m-0 code-p-3" />
 
     <button
         on:click={onClipBtnClick}
-        data-clipboard-target="#generated-code"
+        data-clipboard-text={renderedForm}
         class="copy-btn btn border rounded-2 m-2 p-1 position-absolute top-0 end-0"
         class:border-success={showCopyCheckmark}
     >
