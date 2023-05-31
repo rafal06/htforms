@@ -17,14 +17,14 @@
 				label: '',
 				required: false,
 				additionalProperties: undefined,
-			})
+			});
 			return form;
 		});
 		console.log($formStore);
 	}
 
-	function handleSort(e) {
-		$formStore.inputs = e.detail.items
+	function handleSort(e: any) {
+		$formStore.inputs = e.detail.items;
 	}
 </script>
 
