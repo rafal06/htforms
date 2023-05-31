@@ -8,10 +8,18 @@
 	import FormInputItem from "./FormInputItem.svelte";
     import { capitalize } from "./helpers";
 
+	function genNewInputIndex(): number {
+		let highestValue = 0;
+		$formStore.inputs.forEach(element => {
+			if (element.id > highestValue) highestValue = element.id;
+		});
+		return highestValue + 1;
+	}
+
 	function addFormItem(type: FormInputType) {
 		formStore.update(form => {
 			form.inputs.push( {
-				id: form.inputs.length,
+				id: genNewInputIndex(),
 				type,
 				name: '',
 				label: '',

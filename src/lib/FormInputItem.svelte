@@ -1,9 +1,12 @@
 <script lang="ts">
-	import { Col, Container, FormGroup, Input, Row } from "sveltestrap";
+	import { Col, FormGroup, Input, Row } from "sveltestrap";
 	import { FormInputType, type FormInput } from "./types";
     import { capitalize } from "./helpers";
+	import { formStore } from "./store";
+	
 	import editIcon from "../assets/editIcon.svg";
 	import checkmarkIcon from "../assets/checkmarkIcon.svg";
+	import deleteIcon from "../assets/deleteIcon.svg";
 
 	export let formInput: FormInput;
 
@@ -12,14 +15,18 @@
 	function enterToSubmit(event: any) {
 		if (event.code == 'Enter') editTypeVisible = false;
 	}
+
+	function deleteInput() {
+		$formStore.inputs = $formStore.inputs.filter(storeInput => storeInput !== formInput);
+	}
 </script>
 
-<Container class="my-3 px-4 py-3 border rounded-3" style="width: initial;">
+<div class="container my-3 px-4 py-3 border rounded-3" style="width: initial;">
 	<Row>
 		<Col>
-			{#if editTypeVisible}
-				<Row class="pb-3">
-					<Col>
+			<Row class="pb-2">
+				{#if editTypeVisible}
+					<Col class="pb-1">
 						<Input list="inputTypes" bind:value={formInput.type} on:keypress={enterToSubmit} />
 						<datalist id="inputTypes">
 							{#each Object.keys(FormInputType) as type }
@@ -27,20 +34,28 @@
 							{/each}
 						</datalist>
 					</Col>
-					<Col xs="auto" class="d-flex align-items-center">
+					<Col xs="auto" class="pb-0 d-flex align-items-center">
 						<button class="icon-btn" on:click={() => editTypeVisible = false}>
 							<img src={checkmarkIcon} class="darkreader-invert" alt="save" height="18">
 						</button>
 					</Col>
-				</Row>
-			{:else}
-				<h3 class="pb-2">
-					{capitalize(formInput.type)}
-					<button class="icon-btn" on:click={() => editTypeVisible = true}>
-						<img src={editIcon} class="darkreader-invert" alt="edit" height="18">
+				{:else}
+					<Col>
+						<h3 class="pb-0">
+							{capitalize(formInput.type)}
+							<button class="icon-btn" on:click={() => editTypeVisible = true}>
+								<img src={editIcon} class="darkreader-invert" alt="edit" height="18">
+							</button>
+						</h3>
+					</Col>
+				{/if}
+
+				<Col xs="auto" class="d-flex align-items-center">
+					<button class="icon-btn delete-btn" on:click={deleteInput}>
+						<img src={deleteIcon} alt="delete">
 					</button>
-				</h3>
-			{/if}
+				</Col>
+			</Row>
 		</Col>
 	</Row>
 	<Row>
@@ -74,7 +89,7 @@
 			</FormGroup>
 		</Col>
 	</Row>
-</Container>
+</div>
 
 <style>
 	.icon-btn {
@@ -83,5 +98,14 @@
 	}
 	.icon-btn > img {
 		vertical-align: initial;
+	}
+
+
+	.delete-btn {
+		opacity: 0;
+		transition: opacity 100ms;
+	}
+	.container:hover .delete-btn {
+		opacity: 1;
 	}
 </style>
