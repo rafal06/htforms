@@ -3,7 +3,7 @@
 	import { dndzone } from "svelte-dnd-action";
 	import { flip } from "svelte/animate";
 
-	import { FormInputType, type FormInput } from "./types";
+	import { type InputInterface, InputMap } from "./types";
 	import { formStore } from "./store";
 	import FormInputItem from "./FormInputItem.svelte";
     import { capitalize } from "./helpers";
@@ -16,16 +16,9 @@
 		return highestValue + 1;
 	}
 
-	function addFormItem(type: FormInputType) {
+	function addFormItem(InputClass: InputInterface) {
 		formStore.update(form => {
-			form.inputs.push( {
-				id: genNewInputIndex(),
-				type,
-				name: '',
-				label: '',
-				required: false,
-				additionalProperties: undefined,
-			});
+			form.inputs.push(new InputClass(genNewInputIndex()));  // This works, idk why it shows up as an error
 			return form;
 		});
 		console.log($formStore);
@@ -58,7 +51,7 @@
 
 		<Row>
 			<section class="col border rounded-3" use:dndzone={{items: $formStore.inputs, flipDurationMs: 200}} on:consider={handleSort} on:finalize={handleSort}>
-				{#each $formStore.inputs as formInput (formInput.id) }
+				{#each $formStore.inputs as formInput (formInput.id)}
 					<div animate:flip={{duration: 200}}>
 						<FormInputItem bind:formInput={formInput} />
 					</div>
@@ -71,9 +64,9 @@
 				<Dropdown>
 					<DropdownToggle color="primary">Add Input</DropdownToggle>
 					<DropdownMenu>
-						{#each Object.keys(FormInputType) as type }
-							<DropdownItem on:click={() => addFormItem(FormInputType[type])}>
-								{capitalize(FormInputType[type])}
+						{#each Object.entries(InputMap) as [name, type] }
+							<DropdownItem on:click={() => addFormItem(type)}>
+								{capitalize(name)}
 							</DropdownItem>
 						{/each}
 					</DropdownMenu>

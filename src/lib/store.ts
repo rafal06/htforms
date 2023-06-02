@@ -1,10 +1,11 @@
 import { writable } from 'svelte/store';
-import { FormInputType, type FormInput, type FormObj } from './types';
+import { type FormObj } from './types';
 
 export let formStore = writable<FormObj>(
-	JSON.parse(localStorage.getItem('userFormData')) || { method: 'GET', inputs: [] }
+	/* JSON.parse(localStorage.getItem('userFormData')) || */ { method: 'GET', action: '', inputs: [] }
+	// TODO: Reimplement saving to localStorage
 );
 
-formStore.subscribe(value => {
-	localStorage.setItem('userFormData', JSON.stringify(value));
-});
+// formStore.subscribe(value => {
+// 	localStorage.setItem('userFormData', JSON.stringify(value));
+// });
