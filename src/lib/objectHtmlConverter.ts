@@ -1,4 +1,4 @@
-import { type FormObj } from "./types";
+import { type FormObj } from "./store";
 
 export function convertToHtml(form: FormObj) {
     let formHtml = `<form method="${form.method}"${ form.action ? ` action="${form.action}"` : ''}>\n`;

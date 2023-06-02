@@ -1,5 +1,11 @@
 import { writable } from 'svelte/store';
-import { type FormObj } from './types';
+import { type InputInterface } from './types';
+
+export interface FormObj {
+	method: string,
+	action: string,
+	inputs: InputInterface[],
+}
 
 export let formStore = writable<FormObj>(
 	/* JSON.parse(localStorage.getItem('userFormData')) || */ { method: 'GET', action: '', inputs: [] }

@@ -1,10 +1,3 @@
-
-export interface FormObj {
-	method: string,
-	action: string,
-	inputs: InputInterface[],
-}
-
 // Input classes
 
 export interface InputInterface {
